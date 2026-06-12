@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EA Care — Licensed Vet Tech · In-Home Pet Care · NYC Bronx</title>
+  <link rel="icon" type="image/png" href="https://designmywebsitenow.com/images/favicon-merkaba.png">
+  <link rel="apple-touch-icon" href="https://designmywebsitenow.com/images/favicon-merkaba.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --forest: #1a3a2a;
+      --forest-deep: #0f2419;
+      --forest-mid: #264d38;
+      --cream: #fdf8f3;
+      --cream-tint: #f0ebe3;
+      --ochre: #c8813a;
+      --ochre-lt: #e09a50;
+      --sage: #8fa882;
+      --sage-lt: #b5c8ab;
+      --charcoal: #2c2825;
+      --text: #2c2825;
+      --text-lt: #5a5550;
+      --serif: 'Playfair Display', Georgia, serif;
+      --sans: 'DM Sans', system-ui, sans-serif;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--sans); color: var(--text); background: var(--cream); overflow-x: hidden; }
+    img { max-width: 100%; display: block; }
+    a { color: inherit; text-decoration: none; }
+
+    .skip-link { position: absolute; left: -9999px; top: auto; width: 1px; height: 1px; overflow: hidden; }
+    .skip-link:focus { left: 1rem; top: 1rem; width: auto; height: auto; overflow: visible; background: var(--ochre); color: #fff; padding: 0.75rem 1.5rem; font-family: var(--sans); font-size: 0.9rem; z-index: 9999; border-radius: 4px; }
+
+    .rv { opacity: 0; transform: translateY(28px); transition: opacity 0.75s ease, transform 0.75s ease; }
+    .rv.visible { opacity: 1; transform: none; }
+
+    /* NAV */
+    .nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 1.25rem clamp(1.5rem, 5vw, 4rem); display: flex; align-items: center; justify-content: space-between; transition: background 0.3s, backdrop-filter 0.3s, padding 0.3s; }
+    .nav.scrolled { background: rgba(15,36,25,0.93); backdrop-filter: blur(12px); padding-top: 0.85rem; padding-bottom: 0.85rem; }
+    .nav-left { display: flex; flex-direction: column; gap: 0.1rem; }
+    .nav-logo { font-family: var(--serif); font-size: clamp(1.3rem, 2.5vw, 1.6rem); font-weight: 700; color: var(--cream); letter-spacing: 0.02em; }
+    .nav-tagline { font-size: 0.62rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--sage-lt); }
+    .nav-right { display: flex; align-items: center; gap: 2rem; }
+    .nav-links { display: flex; align-items: center; gap: 1.75rem; list-style: none; }
+    .nav-links a { font-size: 0.78rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.8); transition: color 0.2s; min-height: 44px; display: inline-flex; align-items: center; }
+    .nav-links a:hover { color: var(--cream); }
+    .nav-cta { background: var(--ochre); color: var(--cream); padding: 0.6rem 1.4rem; font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 500; border-radius: 2px; white-space: nowrap; flex-shrink: 0; transition: background 0.2s; display: inline-block; }
+    .nav-cta:hover { background: var(--ochre-lt); }
+    .nav-toggle { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; outline: none; -webkit-appearance: none; appearance: none; padding: 4px; }
+    .nav-toggle span { width: 24px; height: 2px; background: var(--cream); display: block; transition: all 0.3s; }
+    .mobile-menu { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: var(--forest-deep); z-index: 99; flex-direction: column; align-items: center; justify-content: center; gap: 2rem; }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a { font-family: var(--serif); font-size: clamp(1.5rem, 5vw, 2rem); color: var(--cream); font-style: italic; }
+    .mobile-close { position: absolute; top: 1.5rem; right: 1.5rem; background: none; border: none; outline: none; -webkit-appearance: none; appearance: none; color: var(--cream); font-size: 1.5rem; cursor: pointer; }
+    @media (max-width: 768px) { .nav-links, .nav-cta { display: none; } .nav-toggle { display: flex; } }
+
+    /* HERO */
+    .hero { position: relative; min-height: 100dvh; display: flex; align-items: flex-end; padding: clamp(3rem,8vw,6rem) clamp(1.5rem,5vw,4rem); overflow: hidden; }
+    .hero-bg { position: absolute; inset: 0; z-index: 0; }
+    .hero-bg img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center top; transform: scale(1.08) translateZ(0); will-change: transform; transition: transform 8s ease; }
+    .hero-bg img.loaded { transform: scale(1.06) translateZ(0); }
+    .hero-gradient { position: absolute; inset: 0; background: linear-gradient(to top, rgba(15,36,25,0.94) 0%, rgba(15,36,25,0.68) 38%, rgba(15,36,25,0.3) 68%, rgba(15,36,25,0.08) 100%); z-index: 1; }
+    .hero-content { position: relative; z-index: 2; max-width: 780px; }
+    .hero-eyebrow { font-size: 0.7rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--sage-lt); margin-bottom: 1.25rem; display: flex; align-items: center; gap: 0.75rem; }
+    .hero-eyebrow::before { content: ''; display: block; width: 2rem; height: 1px; background: var(--sage); }
+    .hero-h1 { font-family: var(--serif); font-size: clamp(2.8rem,7vw,5.5rem); font-weight: 700; color: var(--cream); line-height: 1.05; margin-bottom: 1.25rem; }
+    .hero-h1 em { font-style: italic; color: var(--ochre-lt); }
+    .hero-sub { font-size: clamp(1rem,2vw,1.2rem); color: rgba(253,248,243,0.8); font-weight: 300; line-height: 1.65; max-width: 540px; margin-bottom: 2.5rem; }
+    .hero-ctas { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .btn-primary { background: var(--ochre); color: var(--cream); padding: 0.85rem 2rem; font-size: 0.78rem; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 500; border: none; border-radius: 2px; cursor: pointer; white-space: nowrap; flex-shrink: 0; transition: background 0.2s, transform 0.2s; display: inline-block; min-height: 44px; }
+    .btn-primary:hover { background: var(--ochre-lt); transform: translateY(-1px); }
+    .btn-ghost { background: transparent; color: var(--cream); padding: 0.85rem 2rem; font-size: 0.78rem; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 500; border: 1px solid rgba(253,248,243,0.45); border-radius: 2px; cursor: pointer; white-space: nowrap; flex-shrink: 0; transition: border-color 0.2s; display: inline-block; min-height: 44px; }
+    .btn-ghost:hover { border-color: var(--cream); }
+    .hero-badges { position: absolute; bottom: clamp(2rem,5vw,4rem); right: clamp(1.5rem,5vw,4rem); z-index: 2; display: flex; flex-direction: column; gap: 0.6rem; align-items: flex-end; }
+    .hero-badge { background: rgba(26,58,42,0.72); backdrop-filter: blur(8px); border: 1px solid rgba(143,168,130,0.35); color: var(--sage-lt); padding: 0.45rem 1rem; font-size: 0.65rem; letter-spacing: 0.18em; text-transform: uppercase; border-radius: 2px; }
+    @media (max-width: 480px) { .hero-badges { flex-direction: row; flex-wrap: wrap; right: 1rem; bottom: 6rem; justify-content: flex-end; } }
+
+    /* LVT SECTION */
+    .lvt-section { background: var(--forest); padding: clamp(4rem,10vw,8rem) clamp(1.5rem,5vw,4rem); }
+    .section-eyebrow { font-size: 0.68rem; letter-spacing: 0.22em; text-transform: uppercase; margin-bottom: 1rem; }
+    .eyebrow-light { color: var(--sage-lt); }
+    .eyebrow-dark { color: var(--ochre); }
+    .lvt-header { display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem 4rem; align-items: start; margin-bottom: 3.5rem; }
+    @media (max-width: 768px) { .lvt-header { grid-template-columns: 1fr; gap: 1.5rem; } }
+    .lvt-headline { font-family: var(--serif); font-size: clamp(2rem,4vw,3rem); font-weight: 700; color: var(--cream); line-height: 1.2; }
+    .lvt-headline em { font-style: italic; color: var(--ochre-lt); }
+    .lvt-body { font-size: 0.97rem; line-height: 1.78; color: rgba(253,248,243,0.72); font-weight: 300; }
+    .lvt-body strong { color: var(--cream); font-weight: 500; }
+    .credentials-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem 3rem; }
+    @media (max-width: 600px) { .credentials-grid { grid-template-columns: 1fr; gap: 2rem; } }
+    .cred-col-label { font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--sage); margin-bottom: 1rem; padding-bottom: 0.75rem; border-bottom: 1px solid rgba(143,168,130,0.22); }
+    .cred-chips { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+    .chip { padding: 0.38rem 0.82rem; border-radius: 2rem; font-size: 0.74rem; font-weight: 400; white-space: nowrap; }
+    .chip-h { background: rgba(181,200,171,0.14); border: 1px solid rgba(181,200,171,0.3); color: var(--sage-lt); }
+    .chip-c { background: rgba(200,129,58,0.15); border: 1px solid rgba(200,129,58,0.38); color: var(--ochre-lt); }
+    .lvt-disclaimer { margin-top: 2.5rem; padding: 1rem 1.5rem; border-left: 2px solid rgba(143,168,130,0.35); font-size: 0.77rem; color: rgba(253,248,243,0.45); line-height: 1.65; font-style: italic; }
+
+    /* MEMBERSHIPS */
+    .memberships-section { background: var(--cream); padding: clamp(4rem,10vw,8rem) clamp(1.5rem,5vw,4rem); }
+    .section-header-centered { text-align: center; max-width: 640px; margin: 0 auto 3.5rem; }
+    .section-title { font-family: var(--serif); font-size: clamp(1.8rem,4vw,2.8rem); font-weight: 700; color: var(--charcoal); line-height: 1.2; margin-bottom: 1rem; }
+    .section-title em { font-style: italic; color: var(--ochre); }
+    .section-body { font-size: 0.97rem; line-height: 1.72; color: var(--text-lt); font-weight: 300; }
+    .plans-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; max-width: 1080px; margin: 0 auto; }
+    @media (max-width: 860px) { .plans-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 520px) { .plans-grid { grid-template-columns: 1fr; } }
+    .plan-card { background: #fff; border: 1px solid rgba(44,40,37,0.1); border-radius: 4px; padding: 2rem 1.75rem; position: relative; display: flex; flex-direction: column; transition: box-shadow 0.3s, transform 0.3s; }
+    .plan-card:hover { box-shadow: 0 8px 40px rgba(26,58,42,0.1); transform: translateY(-3px); }
+    .plan-card.featured { background: var(--forest); border-color: var(--forest); }
+    .plan-badge { position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: var(--ochre); color: var(--cream); font-size: 0.58rem; letter-spacing: 0.2em; text-transform: uppercase; padding: 0.28rem 0.9rem; border-radius: 2rem; white-space: nowrap; }
+    .plan-tier { font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ochre); margin-bottom: 0.6rem; }
+    .plan-card.featured .plan-tier { color: var(--sage-lt); }
+    .plan-name { font-family: var(--serif); font-size: 1.4rem; font-weight: 700; color: var(--charcoal); margin-bottom: 0.25rem; }
+    .plan-card.featured .plan-name { color: var(--cream); }
+    .plan-tagline { font-size: 0.8rem; color: var(--text-lt); margin-bottom: 1.5rem; line-height: 1.5; }
+    .plan-card.featured .plan-tagline { color: rgba(253,248,243,0.6); }
+    .plan-price-wrap { display: flex; align-items: baseline; gap: 0.2rem; margin-bottom: 0.35rem; }
+    .plan-price { font-family: var(--serif); font-size: clamp(2.2rem,4vw,2.8rem); font-weight: 700; font-style: italic; color: var(--charcoal); line-height: 1; }
+    .plan-card.featured .plan-price { color: var(--ochre-lt); }
+    .plan-per { font-size: 0.82rem; color: var(--text-lt); }
+    .plan-card.featured .plan-per { color: rgba(253,248,243,0.5); }
+    .plan-freq { font-size: 0.72rem; color: var(--text-lt); margin-bottom: 1.5rem; font-style: italic; }
+    .plan-card.featured .plan-freq { color: rgba(253,248,243,0.5); }
+    .plan-divider { height: 1px; background: rgba(44,40,37,0.1); margin-bottom: 1.5rem; }
+    .plan-card.featured .plan-divider { background: rgba(253,248,243,0.14); }
+    .plan-features { list-style: none; display: flex; flex-direction: column; gap: 0.65rem; margin-bottom: 2rem; flex: 1; }
+    .plan-features li { font-size: 0.84rem; color: var(--text-lt); display: flex; align-items: flex-start; gap: 0.6rem; line-height: 1.45; }
+    .plan-card.featured .plan-features li { color: rgba(253,248,243,0.75); }
+    .plan-features li::before { content: '✦'; color: var(--ochre); font-size: 0.58rem; margin-top: 0.25rem; flex-shrink: 0; }
+    .plan-card.featured .plan-features li::before { color: var(--sage-lt); }
+    .plan-cta { display: block; text-align: center; padding: 0.85rem 1.5rem; font-size: 0.73rem; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 500; border-radius: 2px; white-space: nowrap; flex-shrink: 0; transition: background 0.2s, color 0.2s, border-color 0.2s; min-height: 44px; display: flex; align-items: center; justify-content: center; }
+    .cta-solid { background: var(--ochre); color: var(--cream); border: 1px solid var(--ochre); }
+    .cta-solid:hover { background: var(--ochre-lt); border-color: var(--ochre-lt); }
+    .cta-outline { background: transparent; color: var(--charcoal); border: 1px solid rgba(44,40,37,0.25); }
+    .cta-outline:hover { border-color: var(--charcoal); }
+    .cta-outline-lt { background: transparent; color: var(--cream); border: 1px solid rgba(253,248,243,0.4); }
+    .cta-outline-lt:hover { border-color: var(--cream); }
+    .alacarte-row { max-width: 1080px; margin: 1.5rem auto 0; background: var(--cream-tint); border: 1px solid rgba(44,40,37,0.08); border-radius: 4px; padding: 1.25rem 1.75rem; display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; flex-wrap: wrap; }
+    .alacarte-label { font-size: 0.6rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--text-lt); margin-bottom: 0.2rem; }
+    .alacarte-name { font-family: var(--serif); font-size: 1.1rem; font-weight: 600; color: var(--charcoal); }
+    .alacarte-desc { font-size: 0.8rem; color: var(--text-lt); margin-top: 0.2rem; }
+    .alacarte-right { display: flex; align-items: center; gap: 1.5rem; flex-shrink: 0; flex-wrap: wrap; }
+    .alacarte-price { font-family: var(--serif); font-size: 1.4rem; font-style: italic; color: var(--text-lt); }
+    .btn-outline-dark { background: transparent; color: var(--charcoal); padding: 0.7rem 1.5rem; font-size: 0.73rem; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 500; border: 1px solid rgba(44,40,37,0.28); border-radius: 2px; white-space: nowrap; flex-shrink: 0; transition: border-color 0.2s; display: inline-block; min-height: 44px; display: inline-flex; align-items: center; }
+    .btn-outline-dark:hover { border-color: var(--charcoal); }
+    .plans-addpet { text-align: center; margin-top: 1.75rem; font-size: 0.82rem; color: var(--text-lt); max-width: 1080px; margin-left: auto; margin-right: auto; }
+    .plans-addpet strong { color: var(--charcoal); }
+
+    /* PHOTO STRIP */
+    .photo-strip { display: grid; grid-template-columns: repeat(5, 1fr); height: clamp(180px,28vw,340px); overflow: hidden; }
+    .photo-strip-item { overflow: hidden; }
+    .photo-strip-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; }
+    .photo-strip-item:hover img { transform: scale(1.05); }
+    @media (max-width: 600px) { .photo-strip { grid-template-columns: repeat(3, 1fr); } .photo-strip-item:nth-child(4), .photo-strip-item:nth-child(5) { display: none; } }
+
+    /* HOW IT WORKS */
+    .how-section { background: var(--cream-tint); padding: clamp(4rem,10vw,8rem) clamp(1.5rem,5vw,4rem); }
+    .steps-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem 3.5rem; max-width: 1000px; margin: 3rem auto 0; }
+    @media (max-width: 640px) { .steps-grid { grid-template-columns: 1fr; gap: 2.5rem; } }
+    .step-num { font-family: var(--serif); font-size: 3.5rem; font-weight: 700; font-style: italic; color: rgba(200,129,58,0.2); line-height: 1; margin-bottom: 0.5rem; user-select: none; }
+    .step-title { font-family: var(--serif); font-size: 1.2rem; font-weight: 600; color: var(--charcoal); margin-bottom: 0.75rem; }
+    .step-body { font-size: 0.88rem; color: var(--text-lt); line-height: 1.75; font-weight: 300; }
+
+    /* ABOUT */
+    .about-section { background: var(--cream); padding: clamp(4rem,10vw,8rem) clamp(1.5rem,5vw,4rem); }
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem 5rem; align-items: center; max-width: 1100px; margin: 0 auto; }
+    @media (max-width: 768px) { .about-grid { grid-template-columns: 1fr; gap: 2.5rem; } }
+    .about-img-wrap { position: relative; }
+    .about-img-main { width: 100%; border-radius: 4px; aspect-ratio: 3/4; object-fit: cover; object-position: center top; }
+    .about-img-secondary { position: absolute; bottom: -2rem; right: -2rem; width: 44%; border-radius: 4px; border: 4px solid var(--cream); aspect-ratio: 1/1; object-fit: cover; object-position: top; }
+    @media (max-width: 768px) { .about-img-secondary { display: none; } }
+    .about-blockquote { font-family: var(--serif); font-size: clamp(1.15rem,2.2vw,1.5rem); font-style: italic; color: var(--forest); line-height: 1.55; margin-bottom: 1.75rem; padding-left: 1.5rem; border-left: 3px solid var(--ochre); }
+    .about-bio { font-size: 0.94rem; line-height: 1.82; color: var(--text-lt); font-weight: 300; margin-bottom: 1.75rem; }
+    .about-bio p + p { margin-top: 1rem; }
+    .cred-badges { display: flex; flex-wrap: wrap; gap: 0.55rem; margin-bottom: 1.75rem; }
+    .cred-badge { background: var(--forest); color: var(--sage-lt); padding: 0.4rem 0.9rem; font-size: 0.65rem; letter-spacing: 0.14em; text-transform: uppercase; border-radius: 2px; }
+    .about-cta-link { font-size: 0.76rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ochre); font-weight: 500; display: inline-flex; align-items: center; gap: 0.5rem; transition: gap 0.25s; min-height: 44px; }
+    .about-cta-link:hover { gap: 0.9rem; }
+
+    /* CTA BAND */
+    .cta-band { background: var(--forest-deep); padding: clamp(4rem,10vw,7rem) clamp(1.5rem,5vw,4rem); text-align: center; }
+    .cta-band-eyebrow { font-size: 0.63rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--sage); margin-bottom: 1.25rem; }
+    .cta-band-headline { font-family: var(--serif); font-size: clamp(2rem,5vw,3.5rem); font-weight: 700; color: var(--cream); line-height: 1.15; margin-bottom: 2rem; }
+    .cta-band-headline em { font-style: italic; color: var(--ochre-lt); }
+    .cta-band-ctas { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; }
+
+    /* FOOTER */
+    .footer { background: var(--charcoal); border-radius: 3rem 3rem 0 0; padding: clamp(3rem,8vw,5rem) clamp(1.5rem,5vw,4rem) 2rem; }
+    .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 3rem; margin-bottom: 3rem; }
+    @media (max-width: 620px) { .footer-grid { grid-template-columns: 1fr; gap: 2rem; } }
+    .footer-brand-name { font-family: var(--serif); font-size: 1.5rem; font-weight: 700; color: var(--cream); margin-bottom: 0.5rem; }
+    .footer-brand-tagline { font-size: 0.8rem; color: rgba(253,248,243,0.5); line-height: 1.65; margin-bottom: 1rem; font-weight: 300; }
+    .footer-contact { font-size: 0.82rem; color: rgba(253,248,243,0.55); line-height: 1.85; }
+    .footer-contact a { color: var(--sage-lt); }
+    .footer-col-label { font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--sage); margin-bottom: 1rem; }
+    .footer-links { list-style: none; display: flex; flex-direction: column; gap: 0.35rem; }
+    .footer-links a { font-size: 0.84rem; color: rgba(253,248,243,0.55); transition: color 0.2s; min-height: 44px; display: inline-flex; align-items: center; }
+    .footer-links a:hover { color: var(--cream); }
+    .footer-bottom { border-top: 1px solid rgba(253,248,243,0.1); padding-top: 1.5rem; display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap; }
+    .footer-copy { font-size: 0.73rem; color: rgba(253,248,243,0.32); }
+    .footer-service-area { font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(253,248,243,0.32); }
+
+    /* A11Y TOGGLE */
+    .a11y-toggle { position: fixed; bottom: 1.5rem; right: 1.5rem; z-index: 200; background: var(--forest); color: var(--cream); border: 1px solid rgba(143,168,130,0.4); border-radius: 50%; width: 44px; height: 44px; font-size: 1.1rem; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 12px rgba(0,0,0,0.2); -webkit-appearance: none; appearance: none; outline: none; transition: background 0.2s; }
+    .a11y-toggle:hover { background: var(--forest-mid); }
+    .a11y-toggle:focus-visible { outline: 3px solid var(--ochre); outline-offset: 2px; }
+    *:focus-visible { outline: 3px solid var(--ochre); outline-offset: 2px; }
+
+    /* A11Y MODE */
+    body.a11y-mode { background: #fff; color: #111; }
+    body.a11y-mode .nav { background: rgba(255,255,255,0.97); backdrop-filter: blur(8px); border-bottom: 1px solid #ddd; }
+    body.a11y-mode .nav-logo { color: #111; }
+    body.a11y-mode .nav-tagline { color: #555; }
+    body.a11y-mode .nav-links a { color: #111; }
+    body.a11y-mode .nav-cta { background: #004d99; }
+    body.a11y-mode .hero-gradient { background: rgba(255,255,255,0.86); }
+    body.a11y-mode .hero-eyebrow { color: #004d99 !important; }
+    body.a11y-mode .hero-h1 { color: #111 !important; }
+    body.a11y-mode .hero-h1 em { color: #7a4800 !important; }
+    body.a11y-mode .hero-sub { color: #333 !important; }
+    body.a11y-mode .btn-primary { background: #004d99; }
+    body.a11y-mode .btn-ghost { color: #111; border-color: #555; }
+    body.a11y-mode .hero-badge { background: rgba(0,0,0,0.08); color: #333; border-color: #ccc; }
+    body.a11y-mode .plan-name { font-weight: 600; }
+    body.a11y-mode .section-title { font-weight: 600; }
+    body.a11y-mode .about-bio, body.a11y-mode .section-body, body.a11y-mode .step-body { color: #333; font-size: 1rem; }
+    body.a11y-mode a { color: #0057b8; text-decoration: underline; }
+    body.a11y-mode .rv { opacity: 1 !important; transform: none !important; }
+    body.a11y-mode .lvt-headline { font-weight: 700; }
+    body.a11y-mode .alacarte-row { background: #f5f5f5; }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } html { scroll-behavior: auto; } .rv { opacity: 1 !important; transform: none !important; } }
+    @media (hover: none) { body { cursor: auto; } }
+  </style>
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <nav class="nav" id="nav" role="navigation" aria-label="Main navigation">
+    <div class="nav-left">
+      <a href="#" class="nav-logo" aria-label="EA Care home">EA Care</a>
+      <span class="nav-tagline">Licensed Vet Tech · NYC</span>
+    </div>
+    <div class="nav-right">
+      <ul class="nav-links" role="list">
+        <li><a href="#credentials">Credentials</a></li>
+        <li><a href="#memberships">Memberships</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <a href="#memberships" class="nav-cta">Book a Visit</a>
+    </div>
+    <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <div class="mobile-menu" id="mobileMenu" role="dialog" aria-modal="true" aria-label="Navigation menu">
+    <button class="mobile-close" id="mobileClose" aria-label="Close menu">✕</button>
+    <a href="#credentials">Credentials</a>
+    <a href="#memberships">Memberships</a>
+    <a href="#about">About</a>
+    <a href="#contact">Contact</a>
+    <a href="#memberships" class="btn-primary" style="margin-top:1rem;">Book a Visit</a>
+  </div>
+
+  <main id="main-content" tabindex="-1">
+
+    <!-- HERO -->
+    <section class="hero" aria-label="Hero">
+      <div class="hero-bg">
+        <img src="IMG-20241002-WA0002.jpg" alt="EA Care founder in scrubs with a patient" id="heroBg" fetchpriority="high">
+        <div class="hero-gradient" aria-hidden="true"></div>
+      </div>
+      <div class="hero-content">
+        <p class="hero-eyebrow">Licensed Vet Tech (LVT) · The Bronx · New York City</p>
+        <h1 class="hero-h1">Clinic-Grade Care,<br><em>Delivered Home.</em></h1>
+        <p class="hero-sub">Your pet gets the full expertise of a hospital-trained Licensed Veterinary Technician — without the carrier, the waiting room, or the stress.</p>
+        <div class="hero-ctas">
+          <a href="#memberships" class="btn-primary">View Membership Plans</a>
+          <a href="#memberships" class="btn-ghost">Book a Single Visit</a>
+        </div>
+      </div>
+      <div class="hero-badges" aria-label="Credentials">
+        <div class="hero-badge">NY State Licensed LVT</div>
+        <div class="hero-badge">500+ Happy Patients</div>
+        <div class="hero-badge">5★ Rated</div>
+      </div>
+    </section>
+
+    <!-- LVT DIFFERENCE -->
+    <section class="lvt-section" id="credentials" aria-labelledby="lvt-heading">
+      <p class="section-eyebrow eyebrow-light">Why It Matters</p>
+      <div class="lvt-header">
+        <h2 class="lvt-headline" id="lvt-heading">Not just a pet nurse.<br><em>A Licensed Veterinary Technician.</em></h2>
+        <div class="lvt-body">
+          <p>A Licensed Veterinary Technician (LVT) completes a rigorous 2–4 year accredited program, passes national board examinations, and holds a state license. <strong>This is the same credential held by the person drawing blood, placing IVs, and monitoring anesthesia at your vet's clinic.</strong></p>
+          <br>
+          <p>The difference between a groomer and an LVT isn't just training — it's legal scope of practice. EA Care brings clinical-grade care directly to your home, under proper veterinary supervision, for a fraction of the stress of a clinic visit.</p>
+        </div>
+      </div>
+      <div class="credentials-grid rv">
+        <div>
+          <p class="cred-col-label">Hygiene &amp; Wellness</p>
+          <div class="cred-chips">
+            <span class="chip chip-h">Nail Trimming</span>
+            <span class="chip chip-h">Ear Cleaning</span>
+            <span class="chip chip-h">Anal Gland Expression</span>
+            <span class="chip chip-h">Dental Brushing &amp; Hygiene</span>
+            <span class="chip chip-h">Sanitary Clips</span>
+            <span class="chip chip-h">Coat Brushing &amp; De-matting</span>
+            <span class="chip chip-h">8-Point Wellness Assessment</span>
+            <span class="chip chip-h">Weight Monitoring</span>
+            <span class="chip chip-h">Fecal Sample Collection</span>
+            <span class="chip chip-h">Urine Sample Collection</span>
+          </div>
+        </div>
+        <div>
+          <p class="cred-col-label">Clinical Procedures</p>
+          <div class="cred-chips">
+            <span class="chip chip-c">IV Catheter Placement</span>
+            <span class="chip chip-c">Venipuncture &amp; Blood Draws</span>
+            <span class="chip chip-c">Subcutaneous Fluid Therapy</span>
+            <span class="chip chip-c">Insulin Administration</span>
+            <span class="chip chip-c">Cytopoint Injections</span>
+            <span class="chip chip-c">Librela Injections</span>
+            <span class="chip chip-c">Cartrophen Injections</span>
+            <span class="chip chip-c">Post-Surgical Wound Care</span>
+            <span class="chip chip-c">Sterile Bandage Changes</span>
+            <span class="chip chip-c">Blood Pressure Monitoring</span>
+            <span class="chip chip-c">Ear Cytology</span>
+            <span class="chip chip-c">Skin Scrapings</span>
+            <span class="chip chip-c">Ocular Tonometry</span>
+            <span class="chip chip-c">ECG / EKG Monitoring</span>
+            <span class="chip chip-c">Anesthesia Monitoring</span>
+            <span class="chip chip-c">Tube Feeding</span>
+            <span class="chip chip-c">Bladder Expression</span>
+            <span class="chip chip-c">Radiograph Positioning</span>
+            <span class="chip chip-c">Oxygen Therapy</span>
+            <span class="chip chip-c">Urinalysis &amp; In-House Diagnostics</span>
+          </div>
+        </div>
+      </div>
+      <p class="lvt-disclaimer">Clinical services require a valid Veterinarian-Client-Patient Relationship (VCPR) and veterinarian-issued prescription or protocol. EA Care operates under licensed veterinary supervision in full compliance with New York State veterinary practice regulations.</p>
+    </section>
+
+    <!-- MEMBERSHIPS -->
+    <section class="memberships-section" id="memberships" aria-labelledby="memberships-heading">
+      <div class="section-header-centered rv">
+        <p class="section-eyebrow eyebrow-dark">Membership Plans</p>
+        <h2 class="section-title" id="memberships-heading">Predictable care.<br><em>Zero waiting rooms.</em></h2>
+        <p class="section-body">Monthly memberships lock in your pet's care schedule, eliminate trip fees, and give you priority access to NYC's only in-home LVT service. Choose the plan that fits your pet's needs.</p>
+      </div>
+      <div class="plans-grid rv">
+
+        <div class="plan-card">
+          <p class="plan-tier">Tier 1</p>
+          <h3 class="plan-name">Paw Essentials</h3>
+          <p class="plan-tagline">Monthly preventive hygiene — the routine care every pet needs, done right.</p>
+          <div class="plan-price-wrap">
+            <span class="plan-price">$69</span>
+            <span class="plan-per">/mo</span>
+          </div>
+          <p class="plan-freq">1 visit per month</p>
+          <div class="plan-divider"></div>
+          <ul class="plan-features">
+            <li>Nail trimming</li>
+            <li>Ear cleaning</li>
+            <li>Anal gland expression</li>
+            <li>Dental brushing &amp; hygiene</li>
+            <li>Sanitary clip / coat maintenance</li>
+            <li>8-point wellness assessment</li>
+            <li>Priority scheduling</li>
+          </ul>
+          <a href="#contact" class="plan-cta cta-outline">Get Started →</a>
+        </div>
+
+        <div class="plan-card featured">
+          <div class="plan-badge">Most Popular</div>
+          <p class="plan-tier">Tier 2</p>
+          <h3 class="plan-name">Chronic Care</h3>
+          <p class="plan-tagline">Ongoing medical management for pets with chronic conditions or injection schedules.</p>
+          <div class="plan-price-wrap">
+            <span class="plan-price">$129</span>
+            <span class="plan-per">/mo</span>
+          </div>
+          <p class="plan-freq">Bi-weekly visits · 2x per month</p>
+          <div class="plan-divider"></div>
+          <ul class="plan-features">
+            <li>All Tier 1 services included</li>
+            <li>Injectable medication admin (insulin, Cytopoint, Librela, Cartrophen)</li>
+            <li>Subcutaneous fluid therapy</li>
+            <li>Blood pressure monitoring</li>
+            <li>Priority 24-hr scheduling</li>
+            <li>Direct triage messaging</li>
+            <li>Trip fees fully waived</li>
+          </ul>
+          <a href="#contact" class="plan-cta cta-outline-lt">Get Started →</a>
+        </div>
+
+        <div class="plan-card">
+          <p class="plan-tier">Tier 3</p>
+          <h3 class="plan-name">Recovery Care</h3>
+          <p class="plan-tagline">Intensive post-surgical support for pets healing from major procedures.</p>
+          <div class="plan-price-wrap">
+            <span class="plan-price">$249</span>
+            <span class="plan-per">/mo</span>
+          </div>
+          <p class="plan-freq">Weekly visits · 3–6 month plans</p>
+          <div class="plan-divider"></div>
+          <ul class="plan-features">
+            <li>Post-op incision care &amp; monitoring</li>
+            <li>Sterile bandage changes</li>
+            <li>Range-of-motion therapy</li>
+            <li>Wound care &amp; drainage management</li>
+            <li>Direct coordination with your surgeon</li>
+            <li>Tube feeding if required</li>
+            <li>All trip fees waived</li>
+          </ul>
+          <a href="#contact" class="plan-cta cta-outline">Get Started →</a>
+        </div>
+      </div>
+
+      <div class="alacarte-row rv">
+        <div>
+          <p class="alacarte-label">Non-Member Option</p>
+          <p class="alacarte-name">Single Visit — À La Carte</p>
+          <p class="alacarte-desc">Pay per visit. Full trip fee applies. Scheduled after member appointments.</p>
+        </div>
+        <div class="alacarte-right">
+          <span class="alacarte-price">from $125</span>
+          <a href="#contact" class="btn-outline-dark">Inquire →</a>
+        </div>
+      </div>
+
+      <p class="plans-addpet rv"><strong>Additional pets in the same household:</strong> + $55/mo on any plan</p>
+    </section>
+
+    <!-- PHOTO STRIP -->
+    <div class="photo-strip" aria-hidden="true" role="presentation">
+      <div class="photo-strip-item"><img src="IMG-20241002-WA0007.jpg" alt="In-home post-surgical care"></div>
+      <div class="photo-strip-item"><img src="IMG-20241002-WA0004.jpg" alt="Caring for a puppy with an IV catheter"></div>
+      <div class="photo-strip-item"><img src="IMG-20241216-WA0005.jpg" alt="EA Care nurse with a cat"></div>
+      <div class="photo-strip-item"><img src="PXL_20260412_173043398.PORTRAIT.jpg" alt="EA Care founder with a Corgi in NYC"></div>
+      <div class="photo-strip-item"><img src="PXL_20241010_220524164.PORTRAIT.jpg" alt="EA Care community outreach in the Bronx"></div>
+    </div>
+
+    <!-- HOW IT WORKS -->
+    <section class="how-section" id="how" aria-labelledby="how-heading">
+      <div class="section-header-centered rv">
+        <p class="section-eyebrow eyebrow-dark">The Process</p>
+        <h2 class="section-title" id="how-heading">Three steps.<br><em>Zero stress.</em></h2>
+        <p class="section-body">Getting your pet the care they need shouldn't require a 45-minute subway ride and a carrier meltdown.</p>
+      </div>
+      <div class="steps-grid">
+        <div class="rv">
+          <p class="step-num">01</p>
+          <h3 class="step-title">Choose Your Plan</h3>
+          <p class="step-body">Pick the membership tier that matches your pet's needs — from monthly hygiene maintenance to weekly clinical care. Or book a one-time visit.</p>
+        </div>
+        <div class="rv">
+          <p class="step-num">02</p>
+          <h3 class="step-title">We Handle Scheduling</h3>
+          <p class="step-body">Members get priority booking windows in The Bronx and surrounding NYC boroughs. We work around your schedule — not the other way around.</p>
+        </div>
+        <div class="rv">
+          <p class="step-num">03</p>
+          <h3 class="step-title">Care at Your Door</h3>
+          <p class="step-body">Your LVT arrives fully equipped. Your pet stays in their own space, calm and comfortable. You stay home. That's the whole point.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section class="about-section" id="about" aria-labelledby="about-heading">
+      <div class="about-grid">
+        <div class="about-img-wrap rv">
+          <img class="about-img-main" src="IMG-20241002-WA0007.jpg" alt="EA Care LVT providing in-home veterinary care on a Yorkie">
+          <img class="about-img-secondary" src="PXL_20260412_173043398.PORTRAIT.jpg" alt="EA Care founder with a Corgi in the park">
+        </div>
+        <div class="about-content rv">
+          <p class="section-eyebrow eyebrow-dark">Meet Your LVT</p>
+          <h2 class="section-title" id="about-heading" style="text-align:left; margin-bottom:1.5rem;">The care behind<br><em>EA Care.</em></h2>
+          <blockquote class="about-blockquote">"Your pet doesn't need a waiting room. They need someone who knows what they're doing — right in your living room."</blockquote>
+          <div class="about-bio">
+            <!-- PLACEHOLDER: Replace with real bio from founder -->
+            <p>EA Care was born in the Bronx, built for the Bronx. After years working in veterinary clinics and hospitals across New York City, I saw the same thing over and over — pets that were anxious, owners that were overwhelmed, and routine care that got skipped because clinic visits are just too much.</p>
+            <p>As a Licensed Veterinary Technician, I bring the clinical skills of a hospital visit directly to your home. From monthly hygiene maintenance to post-surgical wound care, the goal is always the same: your pet gets the care they need, in the environment where they're most comfortable.</p>
+          </div>
+          <div class="cred-badges">
+            <span class="cred-badge">NY State LVT</span>
+            <span class="cred-badge">The Bronx · NYC</span>
+            <span class="cred-badge">500+ Patients Served</span>
+          </div>
+          <a href="#contact" class="about-cta-link">Book a visit →</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA BAND -->
+    <section class="cta-band" id="contact" aria-labelledby="cta-heading">
+      <p class="cta-band-eyebrow">Ready to Start?</p>
+      <h2 class="cta-band-headline" id="cta-heading">Your pet deserves a <em>nurse,</em><br>not just a groomer.</h2>
+      <div class="cta-band-ctas">
+        <a href="mailto:hello@eacare.com" class="btn-primary">Start a Membership</a>
+        <a href="tel:+15551234567" class="btn-ghost">Call or Text Us</a>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer" role="contentinfo">
+    <div class="footer-grid">
+      <div>
+        <p class="footer-brand-name">EA Care</p>
+        <p class="footer-brand-tagline">Licensed Veterinary Technician in-home pet care.<br>Serving the Bronx and all five NYC boroughs.</p>
+        <div class="footer-contact">
+          <!-- PLACEHOLDER: Replace with real contact info -->
+          <p><a href="tel:+15551234567">(555) 123-4567</a></p>
+          <p><a href="mailto:hello@eacare.com">hello@eacare.com</a></p>
+        </div>
+      </div>
+      <div>
+        <p class="footer-col-label">Services</p>
+        <ul class="footer-links" role="list">
+          <li><a href="#memberships">Paw Essentials</a></li>
+          <li><a href="#memberships">Chronic Care</a></li>
+          <li><a href="#memberships">Recovery Care</a></li>
+          <li><a href="#memberships">Single Visit</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="footer-col-label">Navigate</p>
+        <ul class="footer-links" role="list">
+          <li><a href="#credentials">LVT Credentials</a></li>
+          <li><a href="#memberships">Memberships</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">© 2026 EA Care · All rights reserved</p>
+      <p class="footer-service-area">The Bronx · Manhattan · Brooklyn · Queens · Staten Island</p>
+    </div>
+  </footer>
+
+  <button class="a11y-toggle" id="a11yToggle" aria-label="Toggle accessibility mode" title="Accessibility mode">♿</button>
+
+  <script>
+    // Living image
+    const heroImg = document.getElementById('heroBg');
+    if (heroImg) {
+      const onLoad = () => requestAnimationFrame(() => heroImg.classList.add('loaded'));
+      heroImg.addEventListener('load', onLoad);
+      if (heroImg.complete) onLoad();
+      window.addEventListener('scroll', () => {
+        const offset = Math.min(window.scrollY * 0.04, window.innerHeight * 0.055);
+        heroImg.style.transform = `scale(1.06) translateY(-${offset}px) translateZ(0)`;
+      }, { passive: true });
+    }
+
+    // Nav scroll
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 60);
+    }, { passive: true });
+
+    // Mobile menu
+    const toggle = document.getElementById('navToggle');
+    const menu = document.getElementById('mobileMenu');
+    const closeBtn = document.getElementById('mobileClose');
+    toggle.addEventListener('click', () => { menu.classList.add('open'); toggle.setAttribute('aria-expanded','true'); });
+    closeBtn.addEventListener('click', () => { menu.classList.remove('open'); toggle.setAttribute('aria-expanded','false'); });
+    menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => { menu.classList.remove('open'); toggle.setAttribute('aria-expanded','false'); }));
+
+    // Scroll reveal
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => e.isIntersecting && e.target.classList.add('visible'));
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.rv').forEach(el => io.observe(el));
+
+    // A11y toggle
+    const a11yBtn = document.getElementById('a11yToggle');
+    if (localStorage.getItem('ea_care_a11y') === '1') document.body.classList.add('a11y-mode');
+    a11yBtn.addEventListener('click', () => {
+      document.body.classList.toggle('a11y-mode');
+      localStorage.setItem('ea_care_a11y', document.body.classList.contains('a11y-mode') ? '1' : '0');
+    });
+  </script>
+</body>
+</html>
