@@ -51,13 +51,7 @@
       height: 68px;
     }
     .nav-brand { display: flex; align-items: center; gap: 0.7rem; }
-    .nav-logo-mark {
-      width: 36px; height: 36px; border-radius: 8px;
-      background: var(--purple);
-      display: flex; align-items: center; justify-content: center;
-      font-family: var(--sans); font-weight: 700; font-size: 1rem; color: #fff;
-      letter-spacing: -0.03em; flex-shrink: 0;
-    }
+    .nav-logo-img { height: 44px; width: auto; display: block; flex-shrink: 0; }
     .nav-brand-text { display: flex; flex-direction: column; gap: 0; }
     .nav-name { font-weight: 700; font-size: 1rem; color: var(--text); letter-spacing: -0.01em; }
     .nav-sub { font-size: 0.62rem; letter-spacing: 0.08em; color: var(--text-md); text-transform: uppercase; }
@@ -80,17 +74,11 @@
       position: relative; min-height: 88vh;
       display: flex; align-items: center;
       overflow: hidden;
-      background: #1a1525;
-    }
-    .hero-bg { position: absolute; inset: 0; }
-    .hero-bg img {
-      width: 100%; height: 100%;
-      object-fit: cover; object-position: center 30%;
-      opacity: 1;
+      background: #1a1525 url('https://images.unsplash.com/photo-1587300003-6a035e88a4d8?w=1920&q=80') center 30% / cover no-repeat;
     }
     .hero-overlay {
       position: absolute; inset: 0;
-      background: linear-gradient(105deg, rgba(20,10,38,0.82) 0%, rgba(61,36,96,0.52) 50%, rgba(20,10,38,0.22) 100%);
+      background: linear-gradient(105deg, rgba(20,10,38,0.80) 0%, rgba(61,36,96,0.48) 55%, rgba(20,10,38,0.18) 100%);
     }
     .hero-content {
       position: relative; z-index: 2;
@@ -394,7 +382,7 @@
   <!-- NAV -->
   <nav class="nav" role="navigation" aria-label="Main navigation">
     <div class="nav-brand">
-      <div class="nav-logo-mark" aria-hidden="true">EA</div>
+      <img src="logo-DdUGObBc.png" alt="EA Care logo" class="nav-logo-img">
       <div class="nav-brand-text">
         <span class="nav-name">EA Care</span>
         <span class="nav-sub">Licensed Vet Tech · NYC</span>
@@ -429,10 +417,7 @@
 
     <!-- HERO -->
     <section class="hero" aria-label="Hero">
-      <div class="hero-bg">
-        <img src="https://images.unsplash.com/photo-1587300003-6a035e88a4d8?auto=format&fit=crop&w=1600&q=80" alt="Golden retriever resting comfortably at home" fetchpriority="high">
-        <div class="hero-overlay" aria-hidden="true"></div>
-      </div>
+      <div class="hero-overlay" aria-hidden="true"></div>
       <div class="hero-content">
         <div class="hero-eyebrow">
           <span class="hero-eyebrow-dot" aria-hidden="true"></span>
