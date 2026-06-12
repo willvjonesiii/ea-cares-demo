@@ -74,14 +74,32 @@
       position: relative; min-height: 88vh;
       display: flex; align-items: center;
       overflow: hidden;
-      background: #1a1525 url('https://images.unsplash.com/photo-1552053831-71594a27632d?w=1920&q=80') center 40% / cover no-repeat;
+      background: #1a1525;
     }
-    .hero-overlay {
+    .hero-bg {
+      position: absolute; inset: 0; z-index: 0;
+    }
+    .hero-bg video {
       position: absolute; inset: 0;
-      background: linear-gradient(105deg, rgba(20,10,38,0.80) 0%, rgba(61,36,96,0.48) 55%, rgba(20,10,38,0.18) 100%);
+      width: 100%; height: 100%;
+      object-fit: cover; object-position: center;
+      z-index: 1;
+    }
+    .hero-bg img {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover; object-position: center;
+      z-index: 0;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+    }
+    .hero-bg img.show { opacity: 1; }
+    .hero-overlay {
+      position: absolute; inset: 0; z-index: 2;
+      background: linear-gradient(105deg, rgba(20,10,38,0.82) 0%, rgba(61,36,96,0.52) 55%, rgba(20,10,38,0.22) 100%);
     }
     .hero-content {
-      position: relative; z-index: 2;
+      position: relative; z-index: 3;
       padding: clamp(3rem,8vw,6rem) clamp(1.5rem,5vw,5rem);
       max-width: 740px;
     }
@@ -417,6 +435,12 @@
 
     <!-- HERO -->
     <section class="hero" aria-label="Hero">
+      <div class="hero-bg" aria-hidden="true">
+        <img src="https://images.pexels.com/videos/6568975/pexels-photo-6568975.jpeg?auto=compress&cs=tinysrgb&w=1440" id="heroBg" alt="" fetchpriority="high">
+        <video autoplay muted loop playsinline preload="auto">
+          <source src="https://videos.pexels.com/video-files/6568975/6568975-hd_1366_720_25fps.mp4" type="video/mp4">
+        </video>
+      </div>
       <div class="hero-overlay" aria-hidden="true"></div>
       <div class="hero-content">
         <div class="hero-eyebrow">
@@ -886,6 +910,17 @@
     toggle.addEventListener('click', () => { menu.classList.add('open'); toggle.setAttribute('aria-expanded','true'); });
     closeBtn.addEventListener('click', () => { menu.classList.remove('open'); toggle.setAttribute('aria-expanded','false'); });
     menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => { menu.classList.remove('open'); toggle.setAttribute('aria-expanded','false'); }));
+
+    // Video hero fallback
+    const heroBg = document.getElementById('heroBg');
+    const heroVideo = document.querySelector('.hero-bg video');
+    if (heroVideo && heroBg) {
+      heroVideo.addEventListener('error', () => heroBg.classList.add('show'));
+      const fallbackTimer = setTimeout(() => {
+        if (heroVideo.readyState === 0) heroBg.classList.add('show');
+      }, 3000);
+      heroVideo.addEventListener('loadeddata', () => clearTimeout(fallbackTimer));
+    }
 
     // Scroll reveal
     const io = new IntersectionObserver(entries => {
