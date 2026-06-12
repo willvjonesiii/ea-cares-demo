@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Membership Plans — EA Care | In-Home LVT Pet Care NYC</title>
+  <link rel="icon" type="image/png" href="https://designmywebsitenow.com/images/favicon-merkaba.png">
+  <link rel="apple-touch-icon" href="https://designmywebsitenow.com/images/favicon-merkaba.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@1,600;1,700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --purple:       #5e3b8a;
+      --purple-mid:   #7b4ec9;
+      --purple-lt:    #a27ed8;
+      --purple-pale:  #f0ebf8;
+      --purple-dark:  #3d2460;
+      --bg:           #f6f2ee;
+      --bg-white:     #ffffff;
+      --text:         #251e30;
+      --text-md:      #5a5468;
+      --text-lt:      #8c879a;
+      --border:       #ddd8e8;
+      --border-lt:    #ece8f2;
+      --green-check:  #2e7d5a;
+      --green-pale:   #edf5f0;
+      --serif:        'Playfair Display', Georgia, serif;
+      --sans:         'Plus Jakarta Sans', system-ui, sans-serif;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--sans); color: var(--text); background: var(--bg-white); overflow-x: hidden; }
+    img { max-width: 100%; display: block; }
+    a { color: inherit; text-decoration: none; }
+
+    .skip-link { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+    .skip-link:focus { left: 1rem; top: 1rem; width: auto; height: auto; overflow: visible; background: var(--purple); color: #fff; padding: 0.75rem 1.5rem; z-index: 9999; border-radius: 4px; }
+
+    .rv { opacity: 0; transform: translateY(22px); transition: opacity 0.65s ease, transform 0.65s ease; }
+    .rv.visible { opacity: 1; transform: none; }
+
+    /* NAV */
+    .nav { position: sticky; top: 0; z-index: 100; background: rgba(255,255,255,0.97); backdrop-filter: blur(10px); border-bottom: 1px solid var(--border-lt); padding: 0 clamp(1.5rem,5vw,4rem); display: flex; align-items: center; justify-content: space-between; height: 68px; }
+    .nav-brand { display: flex; align-items: center; gap: 0.85rem; }
+    .nav-logo-mark { width: 36px; height: 36px; border-radius: 8px; background: var(--purple); color: #fff; font-size: 0.78rem; font-weight: 800; display: flex; align-items: center; justify-content: center; letter-spacing: 0.02em; flex-shrink: 0; }
+    .nav-name { font-weight: 700; font-size: 1rem; color: var(--text); letter-spacing: -0.01em; }
+    .nav-sub { font-size: 0.62rem; letter-spacing: 0.08em; color: var(--text-md); text-transform: uppercase; }
+    .nav-links { display: flex; align-items: center; gap: 0.25rem; list-style: none; }
+    .nav-links a { font-size: 0.84rem; font-weight: 500; color: var(--text-md); padding: 0.5rem 0.85rem; border-radius: 6px; transition: color 0.2s, background 0.2s; min-height: 44px; display: inline-flex; align-items: center; }
+    .nav-links a:hover { color: var(--purple); background: var(--purple-pale); }
+    .nav-links a.active { color: var(--purple); font-weight: 600; }
+    .nav-right { display: flex; align-items: center; }
+    .btn-nav { background: var(--purple); color: #fff; padding: 0.55rem 1.25rem; font-size: 0.82rem; font-weight: 600; border-radius: 8px; white-space: nowrap; flex-shrink: 0; transition: background 0.2s; display: inline-flex; align-items: center; min-height: 44px; }
+    .btn-nav:hover { background: var(--purple-mid); }
+    .nav-toggle { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; outline: none; -webkit-appearance: none; appearance: none; padding: 6px; }
+    .nav-toggle span { width: 22px; height: 2px; background: var(--text); display: block; }
+    .mobile-menu { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: #fff; z-index: 99; flex-direction: column; align-items: center; justify-content: center; gap: 1.5rem; }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a { font-size: 1.25rem; font-weight: 600; color: var(--text); }
+    .mobile-close { position: absolute; top: 1.25rem; right: 1.5rem; background: none; border: none; outline: none; -webkit-appearance: none; appearance: none; font-size: 1.4rem; cursor: pointer; color: var(--text); }
+    @media (max-width: 800px) { .nav-links { display: none; } .nav-toggle { display: flex; } }
+
+    /* PAGE HEADER */
+    .page-header { background: var(--purple-dark); padding: clamp(4rem,9vw,7rem) clamp(1.5rem,5vw,4rem) clamp(3rem,6vw,5rem); position: relative; overflow: hidden; }
+    .page-header::before { content: ''; position: absolute; inset: 0; background: url('https://images.unsplash.com/photo-1587300003-6a035e88a4d8?auto=format&fit=crop&w=1600&q=50') center/cover no-repeat; opacity: 0.1; }
+    .page-header-inner { position: relative; z-index: 1; max-width: 760px; }
+    .breadcrumb { display: flex; align-items: center; gap: 0.5rem; font-size: 0.72rem; color: rgba(255,255,255,0.5); letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 1.5rem; }
+    .breadcrumb a { color: var(--purple-lt); transition: color 0.2s; }
+    .breadcrumb span { opacity: 0.4; }
+    .page-label { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--purple-lt); margin-bottom: 1rem; }
+    .page-title { font-family: var(--sans); font-weight: 700; font-size: clamp(2rem,5vw,3.4rem); color: #fff; line-height: 1.1; letter-spacing: -0.025em; margin-bottom: 1.25rem; }
+    .page-title em { font-family: var(--serif); font-style: italic; color: var(--purple-lt); }
+    .page-subtitle { font-size: clamp(0.95rem,1.6vw,1.1rem); color: rgba(255,255,255,0.65); line-height: 1.7; max-width: 580px; }
+
+    /* VALUE BAND */
+    .value-band { background: var(--bg); padding: 2rem clamp(1.5rem,5vw,4rem); }
+    .value-items { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: repeat(4,1fr); gap: 1.5rem; }
+    @media (max-width: 700px) { .value-items { grid-template-columns: repeat(2,1fr); } }
+    .val-item { display: flex; align-items: flex-start; gap: 0.75rem; }
+    .val-icon { width: 36px; height: 36px; border-radius: 8px; background: var(--purple-pale); color: var(--purple); font-size: 0.95rem; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .val-label { font-size: 0.82rem; font-weight: 700; color: var(--text); line-height: 1.3; }
+    .val-desc { font-size: 0.75rem; color: var(--text-lt); margin-top: 0.15rem; }
+
+    /* PLANS */
+    .plans-section { background: var(--bg-white); padding: clamp(3.5rem,8vw,6.5rem) clamp(1.5rem,5vw,4rem); }
+    .section-label { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--purple); margin-bottom: 0.85rem; }
+    .section-h2 { font-family: var(--sans); font-weight: 700; font-size: clamp(1.7rem,3.5vw,2.5rem); color: var(--text); line-height: 1.2; letter-spacing: -0.02em; margin-bottom: 1rem; }
+    .section-h2 em { font-family: var(--serif); font-style: italic; color: var(--purple-mid); }
+    .section-p { font-size: 1rem; color: var(--text-md); line-height: 1.75; }
+
+    .plans-inner { max-width: 1150px; margin: 0 auto; }
+    .plans-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem; margin-top: 3rem; }
+    @media (max-width: 860px) { .plans-grid { grid-template-columns: 1fr; max-width: 480px; margin-left: auto; margin-right: auto; } }
+
+    .plan-card { background: var(--bg-white); border: 1.5px solid var(--border-lt); border-radius: 16px; overflow: hidden; display: flex; flex-direction: column; position: relative; transition: box-shadow 0.3s, transform 0.3s; }
+    .plan-card:hover { box-shadow: 0 16px 48px rgba(94,59,138,0.12); transform: translateY(-3px); }
+    .plan-card.featured { border-color: var(--purple); border-width: 2px; }
+    .plan-card-img { width: 100%; height: 200px; object-fit: cover; object-position: center; }
+    .plan-badge { position: absolute; top: 14px; right: 14px; background: var(--purple); color: #fff; font-size: 0.6rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; padding: 0.28rem 0.8rem; border-radius: 2rem; }
+    .plan-body { padding: 1.75rem; flex: 1; display: flex; flex-direction: column; }
+    .plan-tier { font-size: 0.62rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--purple); margin-bottom: 0.4rem; }
+    .plan-name { font-size: 1.45rem; font-weight: 700; color: var(--text); margin-bottom: 0.35rem; letter-spacing: -0.02em; }
+    .plan-tagline { font-size: 0.85rem; color: var(--text-md); line-height: 1.55; margin-bottom: 1.5rem; }
+    .plan-price-row { display: flex; align-items: baseline; gap: 0.2rem; margin-bottom: 0.25rem; }
+    .plan-price { font-size: 2.5rem; font-weight: 700; color: var(--text); letter-spacing: -0.04em; line-height: 1; }
+    .plan-per { font-size: 0.9rem; color: var(--text-md); }
+    .plan-visits { font-size: 0.78rem; color: var(--text-lt); margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.5rem; }
+    .plan-visits::before { content: ''; width: 16px; height: 1px; background: var(--border); }
+    .plan-divider { height: 1px; background: var(--border-lt); margin-bottom: 1.5rem; }
+    .plan-features { list-style: none; display: flex; flex-direction: column; gap: 0.7rem; flex: 1; margin-bottom: 1.75rem; }
+    .plan-features li { font-size: 0.87rem; color: var(--text-md); display: flex; align-items: flex-start; gap: 0.6rem; line-height: 1.45; }
+    .plan-features li::before { content: '✓'; color: var(--green-check); font-size: 0.82rem; font-weight: 700; margin-top: 0.08rem; flex-shrink: 0; }
+    .plan-features li.secondary { color: var(--text-lt); }
+    .plan-features li.secondary::before { content: '+'; color: var(--purple-lt); }
+    .plan-cta { display: flex; align-items: center; justify-content: center; padding: 0.9rem 1.25rem; border-radius: 10px; font-size: 0.88rem; font-weight: 700; white-space: nowrap; flex-shrink: 0; transition: background 0.2s, color 0.2s, border-color 0.2s; min-height: 48px; letter-spacing: 0.01em; }
+    .cta-fill { background: var(--purple); color: #fff; border: 2px solid var(--purple); }
+    .cta-fill:hover { background: var(--purple-mid); border-color: var(--purple-mid); }
+    .cta-border { background: transparent; color: var(--purple); border: 2px solid var(--purple); }
+    .cta-border:hover { background: var(--purple-pale); }
+
+    /* ALACARTE */
+    .alacarte-section { background: var(--bg); padding: 0 clamp(1.5rem,5vw,4rem) clamp(3.5rem,8vw,6.5rem); }
+    .alacarte-inner { max-width: 1150px; margin: 0 auto; }
+    .alacarte-card { background: var(--bg-white); border: 1.5px solid var(--border-lt); border-radius: 14px; padding: 1.5rem 2rem; display: flex; align-items: center; justify-content: space-between; gap: 2rem; flex-wrap: wrap; }
+    .alacarte-label { font-size: 0.62rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-lt); margin-bottom: 0.25rem; }
+    .alacarte-name { font-size: 1.1rem; font-weight: 700; color: var(--text); }
+    .alacarte-desc { font-size: 0.84rem; color: var(--text-md); margin-top: 0.25rem; line-height: 1.5; }
+    .alacarte-right { display: flex; align-items: center; gap: 1.5rem; flex-shrink: 0; flex-wrap: wrap; }
+    .alacarte-price { font-size: 1.6rem; font-weight: 700; color: var(--text-md); letter-spacing: -0.02em; }
+    .btn-outline { background: transparent; color: var(--purple); padding: 0.7rem 1.5rem; font-size: 0.86rem; font-weight: 600; border: 2px solid var(--purple); border-radius: 8px; white-space: nowrap; flex-shrink: 0; transition: background 0.2s; display: inline-flex; align-items: center; min-height: 44px; }
+    .btn-outline:hover { background: var(--purple-pale); }
+    .addpet { text-align: center; margin-top: 1.25rem; font-size: 0.87rem; color: var(--text-md); }
+    .addpet strong { color: var(--text); }
+
+    /* COMPARISON TABLE */
+    .compare-section { background: var(--bg-white); padding: clamp(3.5rem,8vw,6.5rem) clamp(1.5rem,5vw,4rem); }
+    .compare-inner { max-width: 900px; margin: 0 auto; }
+    .comp-table { width: 100%; border-collapse: collapse; margin-top: 2.5rem; overflow: hidden; border-radius: 12px; border: 1px solid var(--border-lt); }
+    .comp-table th { padding: 1rem 1.25rem; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; background: var(--bg); color: var(--text-lt); border-bottom: 1px solid var(--border); }
+    .comp-table th.featured-col { background: var(--purple-pale); color: var(--purple); }
+    .comp-table th:not(:first-child), .comp-table td:not(:first-child) { text-align: center; }
+    .comp-table td { padding: 0.9rem 1.25rem; font-size: 0.88rem; color: var(--text-md); border-bottom: 1px solid var(--border-lt); }
+    .comp-table td.featured-col { background: rgba(94,59,138,0.03); }
+    .comp-table tr:last-child td { border-bottom: none; }
+    .comp-table .row-cat td { background: var(--bg); font-size: 0.68rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-lt); padding: 0.6rem 1.25rem; }
+    .comp-table .row-cat td.featured-col { background: var(--purple-pale); color: var(--purple); }
+    .col-yes { color: var(--green-check); font-weight: 700; font-size: 1rem; }
+    .col-no { color: var(--border); font-size: 1rem; }
+    .col-partial { color: var(--text-lt); font-size: 0.82rem; }
+    @media (max-width: 600px) { .comp-table th, .comp-table td { padding: 0.65rem 0.6rem; font-size: 0.78rem; } }
+
+    /* WHY MEMBERSHIP */
+    .why-section { background: var(--purple-dark); padding: clamp(3.5rem,8vw,6.5rem) clamp(1.5rem,5vw,4rem); }
+    .why-inner { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
+    @media (max-width: 760px) { .why-inner { grid-template-columns: 1fr; gap: 2.5rem; } }
+    .why-section .section-label { color: var(--purple-lt); }
+    .why-section .section-h2 { color: #fff; }
+    .why-section .section-h2 em { color: var(--purple-lt); }
+    .why-left p { font-size: 0.97rem; color: rgba(255,255,255,0.6); line-height: 1.8; margin-bottom: 1rem; }
+    .why-math { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 1.5rem; margin-top: 1.5rem; }
+    .why-math-label { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--purple-lt); margin-bottom: 1rem; }
+    .why-math-row { display: flex; justify-content: space-between; align-items: center; padding: 0.65rem 0; border-bottom: 1px solid rgba(255,255,255,0.07); font-size: 0.87rem; }
+    .why-math-row:last-child { border-bottom: none; }
+    .why-math-row .label { color: rgba(255,255,255,0.6); }
+    .why-math-row .value { font-weight: 700; color: #fff; }
+    .why-math-row.total .label { color: var(--purple-lt); font-weight: 700; }
+    .why-math-row.total .value { color: var(--purple-lt); font-size: 1.1rem; }
+    .why-reasons { display: flex; flex-direction: column; gap: 0; }
+    .why-reason { display: grid; grid-template-columns: 40px 1fr; gap: 0 1rem; padding: 1.25rem 0; border-bottom: 1px solid rgba(255,255,255,0.07); align-items: start; }
+    .why-reason:first-child { border-top: 1px solid rgba(255,255,255,0.07); }
+    .wr-num { font-size: 1.4rem; font-weight: 700; color: rgba(255,255,255,0.12); line-height: 1; padding-top: 0.2rem; }
+    .wr-content h4 { font-size: 0.97rem; font-weight: 700; color: #fff; margin-bottom: 0.35rem; }
+    .wr-content p { font-size: 0.84rem; color: rgba(255,255,255,0.48); line-height: 1.65; }
+
+    /* FAQ */
+    .faq-section { background: var(--bg); padding: clamp(3.5rem,8vw,6.5rem) clamp(1.5rem,5vw,4rem); }
+    .faq-inner { max-width: 760px; margin: 0 auto; }
+    .faq-list { margin-top: 2.5rem; display: flex; flex-direction: column; gap: 0; border: 1px solid var(--border-lt); border-radius: 12px; overflow: hidden; }
+    .faq-item { border-bottom: 1px solid var(--border-lt); }
+    .faq-item:last-child { border-bottom: none; }
+    .faq-q { width: 100%; background: none; border: none; outline: none; -webkit-appearance: none; appearance: none; text-align: left; padding: 1.25rem 1.5rem; cursor: pointer; display: flex; align-items: center; justify-content: space-between; gap: 1rem; font-family: var(--sans); font-size: 0.97rem; font-weight: 600; color: var(--text); transition: background 0.2s; min-height: 60px; }
+    .faq-q:hover { background: var(--bg-white); }
+    .faq-q.open { background: var(--bg-white); color: var(--purple); }
+    .faq-icon { font-size: 1.2rem; color: var(--purple-lt); transition: transform 0.3s; flex-shrink: 0; line-height: 1; }
+    .faq-q.open .faq-icon { transform: rotate(45deg); }
+    .faq-a { display: none; padding: 0 1.5rem 1.25rem; font-size: 0.9rem; color: var(--text-md); line-height: 1.75; background: var(--bg-white); }
+    .faq-a.open { display: block; }
+
+    /* CTA */
+    .cta-section { background: var(--bg-white); padding: clamp(4rem,9vw,7rem) clamp(1.5rem,5vw,4rem); text-align: center; }
+    .cta-inner { max-width: 640px; margin: 0 auto; }
+    .cta-h2 { font-family: var(--sans); font-weight: 700; font-size: clamp(1.8rem,4vw,2.8rem); color: var(--text); line-height: 1.15; letter-spacing: -0.02em; margin-bottom: 1.1rem; }
+    .cta-h2 em { font-family: var(--serif); font-style: italic; color: var(--purple-mid); }
+    .cta-sub { font-size: 1rem; color: var(--text-md); margin-bottom: 2rem; line-height: 1.65; }
+    .cta-btns { display: flex; justify-content: center; gap: 0.85rem; flex-wrap: wrap; }
+    .btn-primary { background: var(--purple); color: #fff; padding: 0.85rem 2rem; font-size: 0.9rem; font-weight: 700; border-radius: 8px; white-space: nowrap; flex-shrink: 0; transition: background 0.2s; display: inline-flex; align-items: center; min-height: 48px; }
+    .btn-primary:hover { background: var(--purple-mid); }
+
+    /* FOOTER */
+    .footer { background: var(--text); border-radius: 3rem 3rem 0 0; padding: clamp(3rem,7vw,5rem) clamp(1.5rem,5vw,4rem) 2rem; }
+    .footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 3rem; margin-bottom: 3rem; }
+    @media (max-width: 760px) { .footer-top { grid-template-columns: 1fr 1fr; gap: 2rem; } }
+    @media (max-width: 460px) { .footer-top { grid-template-columns: 1fr; } }
+    .footer-brand-name { font-size: 1.2rem; font-weight: 700; color: #fff; margin-bottom: 0.5rem; }
+    .footer-brand-desc { font-size: 0.82rem; color: rgba(255,255,255,0.45); line-height: 1.7; margin-bottom: 1rem; font-weight: 300; }
+    .footer-contact { font-size: 0.82rem; color: rgba(255,255,255,0.55); line-height: 1.9; }
+    .footer-contact a { color: var(--purple-lt); }
+    .footer-col-head { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(255,255,255,0.4); margin-bottom: 1rem; }
+    .footer-links { list-style: none; display: flex; flex-direction: column; gap: 0.2rem; }
+    .footer-links a { font-size: 0.84rem; color: rgba(255,255,255,0.55); transition: color 0.2s; min-height: 36px; display: inline-flex; align-items: center; }
+    .footer-links a:hover { color: #fff; }
+    .footer-bottom { border-top: 1px solid rgba(255,255,255,0.08); padding-top: 1.5rem; display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap; }
+    .footer-copy { font-size: 0.75rem; color: rgba(255,255,255,0.3); }
+    .footer-area { font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.3); }
+
+    /* A11Y */
+    .a11y-toggle { position: fixed; bottom: 1.5rem; right: 1.5rem; z-index: 200; background: var(--purple); color: #fff; border: none; border-radius: 50%; width: 44px; height: 44px; font-size: 1.05rem; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 12px rgba(94,59,138,0.35); -webkit-appearance: none; appearance: none; outline: none; transition: background 0.2s; }
+    .a11y-toggle:hover { background: var(--purple-mid); }
+    *:focus-visible { outline: 3px solid var(--purple-mid); outline-offset: 2px; }
+    body.a11y-mode { background: #fff; color: #111; }
+    body.a11y-mode .nav { background: #fff; }
+    body.a11y-mode a { color: #0057b8 !important; text-decoration: underline; }
+    body.a11y-mode .rv { opacity: 1 !important; transform: none !important; }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } .rv { opacity: 1 !important; transform: none !important; } }
+  </style>
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <!-- NAV -->
+  <nav class="nav" role="navigation" aria-label="Main navigation">
+    <a href="index.html" class="nav-brand">
+      <div class="nav-logo-mark" aria-hidden="true">EA</div>
+      <div class="nav-brand-text">
+        <span class="nav-name">EA Care</span>
+        <span class="nav-sub">Licensed Vet Tech · NYC</span>
+      </div>
+    </a>
+    <ul class="nav-links" role="list">
+      <li><a href="index.html#services">Services</a></li>
+      <li><a href="credentials.html">Credentials</a></li>
+      <li><a href="memberships.html" class="active">Memberships</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="index.html#contact">Contact</a></li>
+    </ul>
+    <div class="nav-right">
+      <a href="#plans" class="btn-nav">Choose a Plan</a>
+    </div>
+    <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <div class="mobile-menu" id="mobileMenu" role="dialog" aria-modal="true">
+    <button class="mobile-close" id="mobileClose" aria-label="Close menu">✕</button>
+    <a href="index.html#services">Services</a>
+    <a href="credentials.html">Credentials</a>
+    <a href="memberships.html">Memberships</a>
+    <a href="about.html">About</a>
+    <a href="index.html#contact">Contact</a>
+    <a href="#plans" class="btn-primary" style="margin-top:0.5rem;">Choose a Plan</a>
+  </div>
+
+  <main id="main-content" tabindex="-1">
+
+    <!-- PAGE HEADER -->
+    <div class="page-header">
+      <div class="page-header-inner">
+        <div class="breadcrumb">
+          <a href="index.html">Home</a>
+          <span>/</span>
+          <span style="color:rgba(255,255,255,0.7);">Memberships</span>
+        </div>
+        <p class="page-label">Care Plans</p>
+        <h1 class="page-title">Consistent care.<br><em>Predictable cost.</em></h1>
+        <p class="page-subtitle">Monthly memberships give your pet a dedicated LVT on a schedule — no per-visit booking stress, no trip fees, no waiting room. Three tiers based on your pet's clinical needs.</p>
+      </div>
+    </div>
+
+    <!-- VALUE BAND -->
+    <div class="value-band rv">
+      <div class="value-items">
+        <div class="val-item">
+          <div class="val-icon">✓</div>
+          <div>
+            <p class="val-label">Trip fees waived</p>
+            <p class="val-desc">Members never pay travel fees</p>
+          </div>
+        </div>
+        <div class="val-item">
+          <div class="val-icon">📅</div>
+          <div>
+            <p class="val-label">Priority scheduling</p>
+            <p class="val-desc">Members book before non-members</p>
+          </div>
+        </div>
+        <div class="val-item">
+          <div class="val-icon">💬</div>
+          <div>
+            <p class="val-label">Direct triage access</p>
+            <p class="val-desc">Message your LVT between visits</p>
+          </div>
+        </div>
+        <div class="val-item">
+          <div class="val-icon">📋</div>
+          <div>
+            <p class="val-label">Visit documentation</p>
+            <p class="val-desc">Full notes shared with your vet</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PLANS -->
+    <section class="plans-section" id="plans" aria-labelledby="plans-heading">
+      <div class="plans-inner">
+        <div class="rv">
+          <p class="section-label">Membership Tiers</p>
+          <h2 class="section-h2" id="plans-heading">Choose the plan that fits<br><em>your pet's needs.</em></h2>
+          <p class="section-p" style="max-width:560px;">All memberships are month-to-month with no long-term commitment required. Cancel or pause at any time.</p>
+        </div>
+        <div class="plans-grid">
+
+          <!-- TIER 1 -->
+          <div class="plan-card rv" id="tier1">
+            <img class="plan-card-img" src="https://images.unsplash.com/photo-1548199973-03cce0bbc87b?auto=format&fit=crop&w=600&q=80" alt="Two happy dogs outdoors">
+            <div class="plan-body">
+              <p class="plan-tier">Tier 1</p>
+              <h3 class="plan-name">Paw Essentials</h3>
+              <p class="plan-tagline">Monthly preventive hygiene for healthy pets who deserve professional care at home.</p>
+              <div class="plan-price-row">
+                <span class="plan-price">$69</span>
+                <span class="plan-per">/mo</span>
+              </div>
+              <p class="plan-visits">1 visit per month · Trip fee waived</p>
+              <div class="plan-divider"></div>
+              <ul class="plan-features">
+                <li>Nail trimming (all four paws)</li>
+                <li>Ear canal cleaning &amp; inspection</li>
+                <li>Anal gland expression (external)</li>
+                <li>Dental brushing &amp; oral hygiene</li>
+                <li>Sanitary clip / coat maintenance</li>
+                <li>8-point wellness assessment</li>
+                <li>Body weight &amp; condition score</li>
+                <li>Priority scheduling window</li>
+                <li>Visit summary shared with owner</li>
+              </ul>
+              <a href="index.html#contact" class="plan-cta cta-border">Start Paw Essentials</a>
+            </div>
+          </div>
+
+          <!-- TIER 2 FEATURED -->
+          <div class="plan-card featured rv" id="tier2" style="transition-delay:0.1s;">
+            <div class="plan-badge">Most Popular</div>
+            <img class="plan-card-img" src="https://images.unsplash.com/photo-1576201836106-db1758fd1c97?auto=format&fit=crop&w=600&q=80" alt="Dog with veterinarian">
+            <div class="plan-body">
+              <p class="plan-tier">Tier 2</p>
+              <h3 class="plan-name">Chronic Care</h3>
+              <p class="plan-tagline">Bi-weekly clinical management for pets with ongoing medical needs, injection schedules, or monitoring requirements.</p>
+              <div class="plan-price-row">
+                <span class="plan-price">$129</span>
+                <span class="plan-per">/mo</span>
+              </div>
+              <p class="plan-visits">2 visits per month · All fees waived</p>
+              <div class="plan-divider"></div>
+              <ul class="plan-features">
+                <li>All Paw Essentials services included</li>
+                <li>Injectable medications per DVM order<br><span style="font-size:0.78rem;color:var(--text-lt);">(insulin, Cytopoint, Librela, Cartrophen)</span></li>
+                <li>Subcutaneous fluid therapy</li>
+                <li>Blood pressure monitoring (Doppler)</li>
+                <li>Blood glucose checks</li>
+                <li>Priority 24-hour scheduling</li>
+                <li>Direct LVT messaging between visits</li>
+                <li>All trip fees waived</li>
+                <li>Notes forwarded to your veterinarian</li>
+              </ul>
+              <a href="index.html#contact" class="plan-cta cta-fill">Start Chronic Care</a>
+            </div>
+          </div>
+
+          <!-- TIER 3 -->
+          <div class="plan-card rv" id="tier3" style="transition-delay:0.2s;">
+            <img class="plan-card-img" src="https://images.unsplash.com/photo-1583511655826-05700d52f4d9?auto=format&fit=crop&w=600&q=80" alt="Dog recovering with veterinary care">
+            <div class="plan-body">
+              <p class="plan-tier">Tier 3</p>
+              <h3 class="plan-name">Recovery Care</h3>
+              <p class="plan-tagline">Intensive post-surgical nursing for pets healing from major procedures — structured 3 to 6 month plans.</p>
+              <div class="plan-price-row">
+                <span class="plan-price">$249</span>
+                <span class="plan-per">/mo</span>
+              </div>
+              <p class="plan-visits">Weekly visits · 3–6 month plans</p>
+              <div class="plan-divider"></div>
+              <ul class="plan-features">
+                <li>Post-op incision monitoring &amp; documentation</li>
+                <li>Sterile wound lavage &amp; bandage changes</li>
+                <li>Drain care &amp; output measurement</li>
+                <li>Passive range-of-motion therapy</li>
+                <li>Vital sign monitoring each visit</li>
+                <li>Tube feeding support if required</li>
+                <li>Suture/staple removal per DVM auth.</li>
+                <li>Direct surgeon coordination</li>
+                <li>All trip fees waived</li>
+              </ul>
+              <a href="index.html#contact" class="plan-cta cta-border">Start Recovery Care</a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- À LA CARTE -->
+    <section class="alacarte-section" id="alacarte">
+      <div class="alacarte-inner rv">
+        <div class="alacarte-card">
+          <div>
+            <p class="alacarte-label">Non-Member Option</p>
+            <p class="alacarte-name">Single Visit — À La Carte</p>
+            <p class="alacarte-desc">Pay per visit. Full trip fee applies. Scheduled after member appointments when availability allows. Ideal for first-time clients or one-time needs.</p>
+          </div>
+          <div class="alacarte-right">
+            <span class="alacarte-price">from $125</span>
+            <a href="index.html#contact" class="btn-outline">Inquire About Availability</a>
+          </div>
+        </div>
+        <p class="addpet"><strong>Household with multiple pets?</strong> Add each additional pet in the same home for +$55/mo on any membership plan.</p>
+      </div>
+    </section>
+
+    <!-- PLAN COMPARISON TABLE -->
+    <section class="compare-section" id="compare" aria-labelledby="compare-heading">
+      <div class="compare-inner">
+        <div class="rv" style="text-align:center;">
+          <p class="section-label">Feature Comparison</p>
+          <h2 class="section-h2" id="compare-heading">Everything, <em>side by side.</em></h2>
+          <p class="section-p" style="max-width:500px;margin:0 auto;">All memberships are month-to-month. No contracts. Cancel or upgrade at any time.</p>
+        </div>
+        <table class="comp-table rv" role="table" aria-label="Plan comparison table">
+          <thead>
+            <tr>
+              <th style="min-width:200px;">Feature</th>
+              <th>Paw Essentials<br><span style="font-weight:400;font-size:0.62rem;">$69/mo</span></th>
+              <th class="featured-col">Chronic Care<br><span style="font-weight:400;font-size:0.62rem;">$129/mo</span></th>
+              <th>Recovery Care<br><span style="font-weight:400;font-size:0.62rem;">$249/mo</span></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="row-cat"><td>Visits</td><td></td><td class="featured-col"></td><td></td></tr>
+            <tr>
+              <td>Visits per month</td>
+              <td>1</td>
+              <td class="featured-col">2</td>
+              <td>4 (weekly)</td>
+            </tr>
+            <tr>
+              <td>Trip fee</td>
+              <td class="col-yes">Waived</td>
+              <td class="featured-col col-yes">Waived</td>
+              <td class="col-yes">Waived</td>
+            </tr>
+            <tr class="row-cat"><td>Hygiene Services</td><td></td><td class="featured-col"></td><td></td></tr>
+            <tr>
+              <td>Nail trimming</td>
+              <td class="col-yes">✓</td>
+              <td class="featured-col col-yes">✓</td>
+              <td class="col-yes">✓</td>
+            </tr>
+            <tr>
+              <td>Ear cleaning</td>
+              <td class="col-yes">✓</td>
+              <td class="featured-col col-yes">✓</td>
+              <td class="col-yes">✓</td>
+            </tr>
+            <tr>
+              <td>Anal gland expression</td>
+              <td class="col-yes">✓</td>
+              <td class="featured-col col-yes">✓</td>
+              <td class="col-yes">✓</td>
+            </tr>
+            <tr>
+              <td>8-point wellness assessment</td>
+              <td class="col-yes">✓</td>
+              <td class="featured-col col-yes">✓</td>
+              <td class="col-yes">✓</td>
+            </tr>
+            <tr class="row-cat"><td>Clinical Services</td><td></td><td class="featured-col"></td><td></td></tr>
+            <tr>
+              <td>Injectable medications</td>
+              <td class="col-no">—</td>
+              <td class="featured-col col-yes">✓</td>
+              <td class="col-yes">✓</td>
+            </tr>
+            <tr>
+              <td>Subcutaneous fluid therapy</td>
+              <td class="col-no">—</td>
+              <td class="featured-col col-yes">✓</td>
+              <td class="col-yes">✓</td>
+            </tr>
+            <tr>
+              <td>Blood pressure monitoring</td>
+              <td class="col-no">—</td>
+              <td class="featured-col col-yes">✓</td>
+              <td class="col-yes">✓</td>
+            </tr>
+            <tr>
+              <td>Post-surgical wound care</td>
+              <td class="col-no">—</td>
+              <td class="featured-col col-no">—</td>
+              <td class="col-yes">✓</td>
+            </tr>
+            <tr>
+              <td>Sterile bandage changes</td>
+              <td class="col-no">—</td>
+              <td class="featured-col col-no">—</td>
+              <td class="col-yes">✓</td>
+            </tr>
+            <tr>
+              <td>Range-of-motion therapy</td>
+              <td class="col-no">—</td>
+              <td class="featured-col col-no">—</td>
+              <td class="col-yes">✓</td>
+            </tr>
+            <tr class="row-cat"><td>Communication</td><td></td><td class="featured-col"></td><td></td></tr>
+            <tr>
+              <td>Priority scheduling</td>
+              <td class="col-yes">✓</td>
+              <td class="featured-col col-yes">✓ 24hr</td>
+              <td class="col-yes">✓ Priority</td>
+            </tr>
+            <tr>
+              <td>Direct LVT messaging</td>
+              <td class="col-no">—</td>
+              <td class="featured-col col-yes">✓</td>
+              <td class="col-yes">✓</td>
+            </tr>
+            <tr>
+              <td>Vet coordination &amp; notes</td>
+              <td class="col-partial">On request</td>
+              <td class="featured-col col-yes">✓</td>
+              <td class="col-yes">✓</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- WHY MEMBERSHIP -->
+    <section class="why-section" id="why" aria-labelledby="why-heading">
+      <div class="why-inner">
+        <div class="rv">
+          <p class="section-label">The Math Behind It</p>
+          <h2 class="section-h2" id="why-heading">Why membership<br><em>makes sense.</em></h2>
+          <p class="why-left" style="margin-top:1.25rem;font-size:0.97rem;color:rgba(255,255,255,0.6);line-height:1.8;margin-bottom:0;">For a pet receiving monthly Cytopoint injections, the math is immediate. A single vet clinic visit typically includes exam fee plus injection fee — often $250–$350 per visit. At EA Care, that same clinical service comes to you on a schedule.</p>
+          <div class="why-math rv" style="transition-delay:0.15s;">
+            <p class="why-math-label">Cost comparison — Cytopoint patient, monthly injection</p>
+            <div class="why-math-row">
+              <span class="label">Vet clinic exam fee</span>
+              <span class="value">$65–$100</span>
+            </div>
+            <div class="why-math-row">
+              <span class="label">Cytopoint injection (clinic)</span>
+              <span class="value">$120–$200</span>
+            </div>
+            <div class="why-math-row">
+              <span class="label">Travel + time + stress</span>
+              <span class="value">Your afternoon</span>
+            </div>
+            <div class="why-math-row total">
+              <span class="label">EA Care Chronic Care membership</span>
+              <span class="value">$129/mo</span>
+            </div>
+          </div>
+        </div>
+        <div class="why-reasons rv" style="transition-delay:0.1s;">
+          <div class="why-reason">
+            <div class="wr-num">01</div>
+            <div class="wr-content">
+              <h4>Your pet stays home</h4>
+              <p>No crate, no car ride, no waiting room. Pets treated in their own environment show lower stress hormones, easier handling, and more accurate baseline vitals.</p>
+            </div>
+          </div>
+          <div class="why-reason">
+            <div class="wr-num">02</div>
+            <div class="wr-content">
+              <h4>The same LVT, every time</h4>
+              <p>Continuity of care means Estefany knows your pet's normal. She catches changes clinic staff on rotating schedules never would.</p>
+            </div>
+          </div>
+          <div class="why-reason">
+            <div class="wr-num">03</div>
+            <div class="wr-content">
+              <h4>Clinical documentation included</h4>
+              <p>Every visit is documented. Notes, vitals, photos, and observations are available for you and forwardable to your veterinarian.</p>
+            </div>
+          </div>
+          <div class="why-reason">
+            <div class="wr-num">04</div>
+            <div class="wr-content">
+              <h4>Early detection at every visit</h4>
+              <p>An 8-point wellness check at every visit means small problems get flagged before they become emergencies and expensive interventions.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="faq-section" id="faq" aria-labelledby="faq-heading">
+      <div class="faq-inner">
+        <div class="rv" style="text-align:center;">
+          <p class="section-label">Common Questions</p>
+          <h2 class="section-h2" id="faq-heading">Everything you need<br><em>to know.</em></h2>
+        </div>
+        <div class="faq-list rv">
+          <div class="faq-item">
+            <button class="faq-q" aria-expanded="false">
+              Do I need a referral from my vet?
+              <span class="faq-icon" aria-hidden="true">+</span>
+            </button>
+            <div class="faq-a" role="region">
+              No referral is needed to start a Paw Essentials (Tier 1) membership. For clinical services in Tier 2 and Tier 3 — injectable medications, wound care, or fluid therapy — EA Care works under an existing veterinary order. If you don't have a current vet relationship, we can help connect you with a local DVM. All clinical procedures are performed within New York State LVT scope of practice.
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-q" aria-expanded="false">
+              What areas does EA Care serve?
+              <span class="faq-icon" aria-hidden="true">+</span>
+            </button>
+            <div class="faq-a" role="region">
+              EA Care is based in The Bronx and serves all five New York City boroughs — Manhattan, Brooklyn, Queens, Staten Island, and The Bronx. Trip fees are waived for all membership clients. For non-member single visits, a trip fee applies based on distance.
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-q" aria-expanded="false">
+              Can I cancel or pause my membership?
+              <span class="faq-icon" aria-hidden="true">+</span>
+            </button>
+            <div class="faq-a" role="region">
+              Yes. All memberships are month-to-month with no long-term contract. You can cancel or pause at any time before your next billing cycle. Recovery Care memberships (Tier 3) are offered as structured 3–6 month plans and may have different cancellation terms — these are discussed during enrollment.
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-q" aria-expanded="false">
+              Do you work with cats as well as dogs?
+              <span class="faq-icon" aria-hidden="true">+</span>
+            </button>
+            <div class="faq-a" role="region">
+              Yes. EA Care services are available for both cats and dogs. The services offered, techniques, and handling protocols are adapted for each species. Some services (like certain injectable medications) are used primarily in dogs; Estefany will confirm what's clinically appropriate for your specific pet during intake.
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-q" aria-expanded="false">
+              How do injectable medications work with my vet?
+              <span class="faq-icon" aria-hidden="true">+</span>
+            </button>
+            <div class="faq-a" role="region">
+              All injectable medications require a current veterinary order. In most cases, your vet prescribes and provides the medication, and Estefany administers it on schedule at your home. She can coordinate directly with your DVM if needed, and documents each administration for the medical record. This is the exact same workflow as a hospital LVT performing the same procedure in-clinic.
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-q" aria-expanded="false">
+              What happens if my pet needs more than the plan covers?
+              <span class="faq-icon" aria-hidden="true">+</span>
+            </button>
+            <div class="faq-a" role="region">
+              If a visit requires services beyond your plan tier, Estefany will discuss it with you before proceeding. Additional services are available at à la carte rates. If she identifies a condition that requires a full DVM examination or emergency care, she will communicate that clearly and help coordinate the appropriate next steps with your veterinarian.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-section" aria-labelledby="cta-heading">
+      <div class="cta-inner rv">
+        <p class="section-label">Ready to Enroll?</p>
+        <h2 class="cta-h2" id="cta-heading">Your pet's care.<br><em>On your schedule.</em></h2>
+        <p class="cta-sub">Choose your plan and get in touch. Estefany will confirm availability in your area and get you on the schedule.</p>
+        <div class="cta-btns">
+          <a href="index.html#contact" class="btn-primary">Reach Out to Enroll</a>
+          <a href="credentials.html" class="btn-outline">Learn About Our Credentials</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer" role="contentinfo">
+    <div class="footer-top">
+      <div>
+        <p class="footer-brand-name">EA Care</p>
+        <p class="footer-brand-desc">Licensed Veterinary Technician in-home pet care. Clinical-grade services for dogs and cats across all five NYC boroughs.</p>
+        <div class="footer-contact">
+          <p><a href="tel:+15551234567">(555) 123-4567</a></p>
+          <p><a href="mailto:hello@eacare.com">hello@eacare.com</a></p>
+        </div>
+      </div>
+      <div>
+        <p class="footer-col-head">Plans</p>
+        <ul class="footer-links" role="list">
+          <li><a href="#tier1">Paw Essentials</a></li>
+          <li><a href="#tier2">Chronic Care</a></li>
+          <li><a href="#tier3">Recovery Care</a></li>
+          <li><a href="#alacarte">Single Visit</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="footer-col-head">Services</p>
+        <ul class="footer-links" role="list">
+          <li><a href="index.html#services">Preventive Hygiene</a></li>
+          <li><a href="index.html#services">Injections</a></li>
+          <li><a href="index.html#services">Post-Surgical Care</a></li>
+          <li><a href="index.html#services">Fluid Therapy</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="footer-col-head">Company</p>
+        <ul class="footer-links" role="list">
+          <li><a href="credentials.html">LVT Credentials</a></li>
+          <li><a href="about.html">About Estefany</a></li>
+          <li><a href="index.html#how">How It Works</a></li>
+          <li><a href="index.html#contact">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">© 2026 EA Care · All rights reserved</p>
+      <p class="footer-area">The Bronx · Manhattan · Brooklyn · Queens · Staten Island</p>
+    </div>
+  </footer>
+
+  <button class="a11y-toggle" id="a11yToggle" aria-label="Toggle accessibility mode" title="Accessibility mode">♿</button>
+
+  <script>
+    // Mobile menu
+    const toggle = document.getElementById('navToggle');
+    const menu = document.getElementById('mobileMenu');
+    const closeBtn = document.getElementById('mobileClose');
+    toggle.addEventListener('click', () => { menu.classList.add('open'); toggle.setAttribute('aria-expanded','true'); });
+    closeBtn.addEventListener('click', () => { menu.classList.remove('open'); toggle.setAttribute('aria-expanded','false'); });
+    menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => { menu.classList.remove('open'); toggle.setAttribute('aria-expanded','false'); }));
+
+    // Scroll reveal
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => e.isIntersecting && e.target.classList.add('visible'));
+    }, { threshold: 0.08 });
+    document.querySelectorAll('.rv').forEach(el => io.observe(el));
+
+    // FAQ accordion
+    document.querySelectorAll('.faq-q').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const isOpen = btn.classList.contains('open');
+        document.querySelectorAll('.faq-q').forEach(b => { b.classList.remove('open'); b.setAttribute('aria-expanded','false'); });
+        document.querySelectorAll('.faq-a').forEach(a => a.classList.remove('open'));
+        if (!isOpen) {
+          btn.classList.add('open');
+          btn.setAttribute('aria-expanded','true');
+          btn.nextElementSibling.classList.add('open');
+        }
+      });
+    });
+
+    // A11y
+    const a11yBtn = document.getElementById('a11yToggle');
+    if (localStorage.getItem('ea_care_a11y') === '1') document.body.classList.add('a11y-mode');
+    a11yBtn.addEventListener('click', () => {
+      document.body.classList.toggle('a11y-mode');
+      localStorage.setItem('ea_care_a11y', document.body.classList.contains('a11y-mode') ? '1' : '0');
+    });
+  </script>
+</body>
+</html>
